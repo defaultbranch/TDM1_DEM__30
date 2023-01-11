@@ -1,5 +1,8 @@
 package ch.patchcode.tdm90
 
+import kotlin.math.abs
+import kotlin.math.floor
+
 data class Position(val longitude: Double, val latitude: Double) {
 
     /**
@@ -28,9 +31,17 @@ data class Position(val longitude: Double, val latitude: Double) {
 
     /**
      * Base for any related TDM90 data tiles, as nominally defined by DLR.
+     *
+     * Some conventions apply:
+     * - round to the equator
+     * - round to the east
      */
     fun tileName(): String {
-        // dummy value
-        return "TDM1_DEM__30_N00E000"
+        // the variable names match the product PDF
+        val b = "N"
+        val x = "E"
+        val bb = "%02.0f".format(floor(abs(latitude)))
+        val xxx = "000"
+        return "TDM1_DEM__30_$b$bb$x$xxx"
     }
 }

@@ -5,6 +5,11 @@ import kotlin.math.floor
 
 data class Position(val longitude: Double, val latitude: Double) {
 
+    init {
+        require(latitude <= 90 && latitude >= -90) { "please normalize latitude" }
+        require(longitude <= 180 && longitude >= -180) { "please normalize longitude" }
+    }
+
     /**
      * GeoTIFF vertical resolution per pixel.
      */
@@ -39,9 +44,9 @@ data class Position(val longitude: Double, val latitude: Double) {
     fun tileName(): String {
         // the variable names match the product PDF
         val b = "N"
-        val x = "E"
+        val x = if (longitude >= 0 && longitude < 180) "E" else "W"
         val bb = "%02.0f".format(floor(abs(latitude)))
-        val xxx = "000"
+        val xxx = "%03.0f".format(abs(floor(longitude)))
         return "TDM1_DEM__30_$b$bb$x$xxx"
     }
 }

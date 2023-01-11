@@ -41,4 +41,18 @@ class PositionTest {
         assertEquals("TDM1_DEM__30_N00W001", geoTiffName)
     }
 
+    @Test
+    fun tileNameN00W180_positiveWest() {
+        val position = Position(longitude = 180.0, latitude = 0.0)
+        val geoTiffName = position.tileName()
+        assertEquals("TDM1_DEM__30_N00W180", geoTiffName)
+    }
+
+    @Test
+    fun tileNameN00W180_negativeWest() {
+        val position = Position(longitude = -180.0, latitude = 0.0)
+        val geoTiffName = position.tileName()
+        assertEquals("TDM1_DEM__30_N00W180", geoTiffName)
+    }
+
 }

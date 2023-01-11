@@ -25,4 +25,12 @@ data class Position(val longitude: Double, val latitude: Double) {
         if (latitude > 60 || latitude < -60) return 2
         return 1
     }
+
+    /**
+     * Base for any related TDM90 data tiles, as nominally defined by DLR.
+     */
+    fun tileName(): String {
+        // dummy value
+        return "TDM1_DEM__30_N00E000"
+    }
 }
